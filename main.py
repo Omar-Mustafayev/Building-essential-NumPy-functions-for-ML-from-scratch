@@ -24,7 +24,7 @@ def add(array1, array2):
     sum of array1 and array2
     Equivalent to np.add(x,y) 
 
-    Args:
+    Args:vectory
         array1 (list): matrix
         array2 (list): matrix
 
@@ -73,11 +73,33 @@ def eye(shape_array):
                 row.append(0)
         identity_matrix.append(row)
     return identity_matrix
-true_eye = eye(shape_array=(3,3))
-#false_eye = eye(shape(x))
-print(true_eye)
-print(shape(true_eye))
-true_eye = eye(shape_array=shape(C))
-#false_eye = eye(shape(x))
-print(true_eye)
-print(shape(true_eye))
+
+def matrix_multiply(array1,array2):
+    n_row1, n_col1 = shape(array1)
+    n_row2, n_col2 = shape(array2)
+    if n_col1 != n_row2:
+        raise ValueError("Matrices can be multiplied only if neighbouring dimeansions match")
+    result = []
+    for i in range(n_row1):
+        row = []
+        for j in range(n_row2):
+            row.append(dot(array1[i][:], array2[:][j]))
+    return result
+
+
+vectorx = [[3,4,2]]
+vectory = [[13],[8],[6]]
+def dot(vector1, vector2):
+    n_row1, n_col1 = shape(vector1)
+    n_row2, n_col2 = shape(vector2)
+    if n_col1 != n_row2:
+        raise ValueError("Matrices can be multiplied only if neighbouring dimeansions match")
+    result = 0
+    for i in range(n_row1):
+        row = []
+        for j in range(n_row2):
+            result += (vector1[i][j] * vector2[j][i])
+  
+    return result
+print(dot(A,B))
+print(matrix_multiply(A,B))
