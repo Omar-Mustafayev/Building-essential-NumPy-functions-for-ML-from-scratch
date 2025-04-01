@@ -2,13 +2,9 @@ import numpy as np
 
 print("Hello, world!")
 
-y1 = [[1,2,3]]
-x = [[1],[2],[3]]
+
 y = [[4,5,6]]
-A = [[1,2,3],[4,5,6]]
-A1 = [[3,2,1],[6,5,4]]
-B = [[1,2],[3,4],[5,6]]
-C = [[1,2],[2,4]]
+
 
 def shape(array):
     """
@@ -53,11 +49,26 @@ def scalar_multiply(array,scalar=1):
   
   
 def norm(array, type):
-    if type == "manhattan" or type == "l1":
-        return sum([elem for elem in row] for row in array)
-    elif type == "euclidean" or type == "l2":
-        return sum([(elem**2)**0.5 for elem in row] for row in array)
+    n_row, n_col = shape(array)
+    result = 0
+    if n_col == 1:
+        if type == "manhattan" or type == "l1": 
+            for i in array:
+                result += abs(i[0])
+        elif type == "euclidean" or type == "l2":
+            for i in array:
+                result += (i[0]**2)
+            result = result**0.5
+    elif n_row == 1:
+        return norm(transpose(array),type)
+    else:
+        raise ValueError("It is norm of vector!")
+    return result
+            
 #print(norm(y,"manhattan"))
+
+
+
 def eye(shape_array):
     n_row,n_col = shape_array
 
@@ -74,32 +85,57 @@ def eye(shape_array):
         identity_matrix.append(row)
     return identity_matrix
 
-def matrix_multiply(array1,array2):
+
+#def dot(array1, array2):
+#    n_row1, n_col1 = shape(array1)
+#   n_row2, n_col2 = shape(array2)
+#  if n_col1 != n_row2:
+#        raise ValueError("Neighbouring dimensions should match!")
+#    sum = 0
+#    for x in range(n_col1):
+#        sum += array1[0][x] * array2[x][0]
+#    return sum
+
+def mat_multiply(array1, array2):
     n_row1, n_col1 = shape(array1)
     n_row2, n_col2 = shape(array2)
     if n_col1 != n_row2:
-        raise ValueError("Matrices can be multiplied only if neighbouring dimeansions match")
-    result = []
+        raise ValueError("Neighbouring dimensions should match!")
+    matrix = zeros((n_row1,n_col2))
     for i in range(n_row1):
+        for j in range(n_col2):
+            for k in range(n_col1): 
+                matrix[i][j] += array1[i][k] * array2[k][j]
+    return matrix
+
+def zeros(shape_array):
+    n_row,n_col = shape_array
+    zero_matrix = []
+    for i in range(n_row):
         row = []
-        for j in range(n_row2):
-            row.append(dot(array1[i][:], array2[:][j]))
-    return result
+        for j in range(n_col):
+            row.append(0)
+        zero_matrix.append(row)    
+    
+    return zero_matrix
+    
+y1 = [[1,2,3]]
+x = [[1],[2],[3]]
+A = [[1,2,3],[4,5,6]]
+A1 = [[3,2,1],[6,5,4]]
+B = [[1,2],[3,4],[5,6]]
+C = [[1,2],[2,4]]
 
 
-vectorx = [[3,4,2]]
-vectory = [[13],[8],[6]]
-def dot(vector1, vector2):
-    n_row1, n_col1 = shape(vector1)
-    n_row2, n_col2 = shape(vector2)
-    if n_col1 != n_row2:
-        raise ValueError("Matrices can be multiplied only if neighbouring dimeansions match")
-    result = 0
-    for i in range(n_row1):
-        row = []
-        for j in range(n_row2):
-            result += (vector1[i][j] * vector2[j][i])
-  
-    return result
-print(dot(A,B))
-print(matrix_multiply(A,B))
+
+def transpose(array):
+    n_row,n_col = shape(array)
+    matrix = zeros((n_col,n_row))
+    for i in range(n_row):
+        for j in range(n_col):
+            matrix[j][i] = array[i][j]
+    return matrix
+print(norm(x,"manhattan"))
+print(norm(y1,"manhattan"))
+print(norm(x,"euclidean"))
+print(norm(y1,"euclidean"))
