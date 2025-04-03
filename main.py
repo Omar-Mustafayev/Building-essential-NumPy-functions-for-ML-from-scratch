@@ -118,14 +118,14 @@ def zeros(shape_array):
         zero_matrix.append(row)    
     
     return zero_matrix
-    
+z = [1,2,3]    
 y1 = [[1,2,3]]
 x = [[1],[2],[3]]
 A = [[1,2,3],[4,5,6]]
 A1 = [[3,2,1],[6,5,4]]
 B = [[1,2],[3,4],[5,6]]
 C = [[1,2],[2,4]]
-
+D = [[1,2,3,4], [1,2,3,4],[1,2,3,4],[1,2,3,4]]
 
 
 def transpose(array):
@@ -135,7 +135,46 @@ def transpose(array):
         for j in range(n_col):
             matrix[j][i] = array[i][j]
     return matrix
-print(norm(x,"manhattan"))
-print(norm(y1,"manhattan"))
-print(norm(x,"euclidean"))
-print(norm(y1,"euclidean"))
+
+def diag(array, k=0):
+    try:
+        n_row, n_col = shape(array)
+        diagonal = []
+        for i in range(n_row):
+            for j in range(n_col):
+                if i == (j - k) and (0 <= j- k <= n_col):
+                    diagonal.append(array[i][j])
+        return diagonal
+    except TypeError:
+        result_matrix = zeros((len(array),len(array)))
+        for i in range(len(array)):
+            result_matrix[i][i] = array[i]
+        return result_matrix
+        
+    
+    
+    
+    
+# print(norm(x,"manhattan"))
+# print(norm(y1,"manhattan"))
+# print(norm(x,"euclidean"))
+# print(norm(y1,"euclidean"))
+# print(diag(C))
+print(diag(D))
+# print(diag(D, 1))
+# print(diag(D, -1))
+# print(diag(D, 2))
+# print(diag(D, 5))
+print(diag(z))
+print(np.diag(z))
+# print(diag(A))
+# print(np.diag(A))
+# print(diag(B,k=1))
+# print(np.diag(B,k=1))
+# print(np.diag(C))
+print(np.diag(D))
+# print(np.diag(D, 1))
+# print(np.diag(D, -1))
+# print(np.diag(D, 2))
+# print(np.diag(D, 5))
+# print(np.diag(y1))
