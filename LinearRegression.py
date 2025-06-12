@@ -1,7 +1,7 @@
-import numpy as np
-from sklearn.datasets import fetch_california_housing
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
+import numpy as np # type: ignore
+from sklearn.datasets import fetch_california_housing # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.linear_model import LinearRegression # type: ignore
 np.set_printoptions(suppress=True)
 
 
