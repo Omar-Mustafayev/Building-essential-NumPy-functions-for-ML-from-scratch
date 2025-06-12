@@ -1,1 +1,1 @@
-# Building-essential-NumPy-functions-for-ML-from-scratch
+# Builing Machine Learning models from scratch
