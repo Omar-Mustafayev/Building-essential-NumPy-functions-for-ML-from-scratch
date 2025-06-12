@@ -1,1 +1,1 @@
-# Builing Machine Learning models from scratch
+# Building Machine Learning models from scratch
