@@ -56,7 +56,7 @@ final_thetas = gradient_descent(X_train, y_train, theta_init, lambda_reg = 0.2, 
 
 
 
-el_net = ElasticNet(alpha=0.2, l1_ratio=0.1, fit_intercept=False)
+el_net = ElasticNet(alpha=0.2, l1_ratio=0.1)
 el_net.fit(X_train, y_train)
 print("Intercept:", el_net.intercept_)
 print("Coefficients:", el_net.coef_)
@@ -66,6 +66,6 @@ print("Our coefficients:", final_thetas[1:].ravel())
 y_pred_custom = X_train @ final_thetas
 y_pred_elastic = el_net.predict(X_train).reshape(-1, 1)
 
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error # type: ignore
 print("MSE (custom):", mean_squared_error(y_train, y_pred_custom))
 print("MSE (ElasticNet):", mean_squared_error(y_train, y_pred_elastic))
